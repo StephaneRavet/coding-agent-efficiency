@@ -19,17 +19,30 @@ These are hypotheses to measure, not claimed results. Hermes is the selected MVP
 
 ## Current status
 
-This repository is an R&D brief and literature map with a minimal manual Hermes launcher; it contains no benchmark results yet. The next step is to freeze a small, reproducible task panel and a fixed set of OpenRouter open-source/open-weight models, then compare Hermes runs with Codex using the same tasks and verifier. Record quality, success rate, total cost, cost per successful task, elapsed time, and token/cache telemetry when available. Dynamic routing, escalation, and DSH are later experiments, not MVP requirements.
+The repository now contains an executable benchmark runner and a fixed six-task synthetic panel. It has no benchmark results yet. Freeze exactly two OpenRouter open-weight model IDs, the Codex model, pricing snapshot, timeout, and budgets before launching the 54 paired trajectories. Record verifier success and blind rubric quality, total measured cost, cost per successful task, elapsed time, and token/cache telemetry when available. Dynamic routing, escalation, and DSH remain later experiments.
 
-## Manual Hermes smoke test
+## Démarrer Hermes manuellement
 
-With Hermes Agent installed and available on `PATH`, run:
+With Hermes Agent installed and configured, run:
 
 ```bash
 ./scripts/hermes-manual.sh
 ```
 
-The launcher opens Hermes' interactive provider/model selector, then starts a session from this repository's root. Choose OpenRouter and a model that supports tool use. Manual smoke tests are exploratory and are not benchmark results. See [the feature record](docs/features/manual-hermes-model-selection.md).
+The launcher starts `hermes` directly from this repository's root using the saved provider/model. Run `hermes model` separately only when you want to change that saved default. Manual smoke tests are exploratory and are not benchmark results. The automated benchmark passes fixed model IDs to each run. See [the feature record](docs/features/manual-hermes-model-selection.md).
+
+## Lancer le benchmark MVP
+
+The benchmark requires Python 3.10+, Hermes Agent, Codex CLI, Docker Desktop using its `desktop-linux` local context, and the local image `nousresearch/hermes-sandbox:desktop`. Hermes tool execution is forced into Docker with network access disabled; the task directory is the only host directory mounted in the sandbox. The acceptance verifier also runs candidate code in a separate networkless, read-only container from that exact frozen local image. The runner strips remote Docker host/context settings before any Docker operation. The current repository host does not have Docker, so it cannot execute model trajectories here.
+
+1. Start local Docker Desktop, pull `nousresearch/hermes-sandbox:desktop`, and record its exact ID with `docker --context desktop-linux image inspect --format '{{.Id}}' nousresearch/hermes-sandbox:desktop`. Put that ID, a fresh UTC timestamp, and the output of `python3 scripts/benchmark.py panel-hash` into [`benchmark/freeze.json`](benchmark/freeze.json); refresh the model price snapshot before the run.
+2. The fixed models are `deepseek/deepseek-v3.2` and `qwen/qwen3-coder-30b-a3b-instruct`; Codex uses the currently configured `gpt-6-luna`. Reasoning is set to `low` for both. OpenRouter's default Balanced endpoint routing is retained, so the served provider may vary.
+3. Create/use a dedicated OpenRouter key with a total $5.40 spend limit and no reset; include BYOK usage in that limit if applicable. Only then set `openrouter_key_limit_confirmed` to `true`. The runner cannot enforce the $0.15 target on each trajectory; the external key limit is the hard total ceiling. Do not run without it.
+4. Run `python3 scripts/benchmark.py validate-panel`. It confirms starter states fail and reference solutions pass inside the frozen, local, networkless Docker verifier. Then run `python3 scripts/benchmark.py preflight`; it refuses an incomplete freeze, mismatched Hermes version/image, non-local Docker context, absent Docker engine, or missing sandbox image.
+5. Run `python3 scripts/benchmark.py run-panel`. The seeded order is sequential and the complete panel has 54 trajectories (6 tasks × 3 systems × 3 repetitions). Hermes and verifier code execute in networkless Docker containers; Codex gets a fresh isolated task folder and workspace-write sandbox.
+6. Inspect `runs/blind/<run-id>.json` and `runs/workspaces/<run-id>/` without consulting `runs/results.jsonl`; record one overall quality score from 1–5 with `python3 scripts/benchmark.py score <run-id> <score>`. Then review `python3 scripts/benchmark.py report`.
+
+The initial fixtures are small synthetic code tasks for validating benchmark mechanics, not a representative estimate of general coding quality. Codex subscription cost is kept separate and unallocated; missing provider telemetry remains unavailable. All generated runs and artifacts are ignored by Git.
 
 ## Documents
 
@@ -37,7 +50,7 @@ The launcher opens Hermes' interactive provider/model selector, then starts a se
 - [Model routing](docs/MODEL_ROUTING.md): the preserved conceptual agentic loop and later routing experiments.
 - [Benchmark strategy](docs/BENCHMARK_STRATEGY.md): Hermes MVP protocol, metrics, controls, and later experiment sequence.
 - [MVP protocol](docs/MVP_PROTOCOL.md): task panel design, freeze sheet, run procedure, and result record.
-- [Feature index](docs/features/INDEX.md): implementation status for the manual Hermes launcher.
+- [Feature index](docs/features/INDEX.md): implementation status for the Hermes benchmark runner.
 - [State of the art](docs/STATE_OF_THE_ART.md): source-backed snapshot dated 2026-10-06.
 
 ## Guiding metric

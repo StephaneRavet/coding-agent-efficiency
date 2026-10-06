@@ -1,0 +1,40 @@
+{
+  "protocol_revision": "mvp-1",
+  "frozen_at_utc": null,
+  "task_panel_sha256": "667bd3d2e333adf81447fd089543bbd391296114f1ef8583baf745998ba16385",
+  "hermes_version": "Hermes Agent v0.21.5+7733.g90194c6 (2026.9.24)",
+  "provider": "openrouter",
+  "provider_policy": "OpenRouter default Balanced; served endpoint may vary",
+  "hermes_docker_image_id": null,
+  "openrouter_models": [
+    "deepseek/deepseek-v3.2",
+    "qwen/qwen3-coder-30b-a3b-instruct"
+  ],
+  "hermes_reasoning_effort": "low",
+  "codex_model": "gpt-6-luna",
+  "codex_cli_version": "codex-cli 0.160.1",
+  "codex_reasoning_effort": "low",
+  "repetitions": 3,
+  "timeout_seconds": 3600,
+  "quality_threshold_score": 4.0,
+  "spend_cap_usd_per_run": 0.15,
+  "total_openrouter_budget_usd": 5.4,
+  "openrouter_key_limit_confirmed": false,
+  "run_order_seed": 20261006,
+  "price_snapshot": {
+    "date": "2026-10-06",
+    "models": {
+      "deepseek/deepseek-v3.2": {
+        "input_usd_per_million": 0.2088,
+        "output_usd_per_million": 0.3096,
+        "source": "https://openrouter.ai/deepseek/deepseek-v3.2"
+      },
+      "qwen/qwen3-coder-30b-a3b-instruct": {
+        "input_usd_per_million": 0.07,
+        "output_usd_per_million": 0.27,
+        "source": "https://openrouter.ai/qwen/qwen3-coder-30b-a3b-instruct/providers"
+      }
+    }
+  },
+  "notes": "Before evaluation, update the price snapshot and UTC freeze time; set task_panel_sha256 from `python3 scripts/benchmark.py panel-hash`; set hermes_docker_image_id from `docker image inspect --format '{{.Id}}' nousresearch/hermes-sandbox:desktop`; configure a dedicated OpenRouter key with a $5.40 limit including BYOK if applicable. The runner cannot impose the $0.15 cap on each individual trajectory; the aggregate provider-key ceiling is the hard spend boundary."
+}
