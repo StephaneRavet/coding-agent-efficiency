@@ -54,7 +54,7 @@ Sources: [CodeRouterBench repository](https://github.com/LanceZPF/agent-as-a-rou
 
 ## Project position
 
-The MVP uses **Hermes as its operational harness** and compares fixed OpenRouter open-source/open-weight model configurations with OpenAI Codex on a small, reproducible paired task panel. It measures quality, success rate, total cost, cost per successful task, elapsed time, and token/cache telemetry when available. Dynamic routing, bounded Jev decisions, and escalation remain later hypotheses. DSH is a possible later R&D harness if Hermes proves limiting for modular experiments.
+The MVP uses **Hermes as its operational harness** and evaluates fixed OpenRouter open-source/open-weight model configurations on a small, reproducible task panel to optimize verified cost per success. It measures quality, success rate, total cost, cost per successful task, elapsed time, and token/cache telemetry when available. No Codex comparison is part of the MVP. Dynamic routing, bounded Jev decisions, and escalation remain later hypotheses. DSH is a possible later R&D harness if Hermes proves limiting for modular experiments.
 
 Potential later baselines (outside the MVP):
 

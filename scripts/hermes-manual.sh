@@ -12,7 +12,6 @@ fi
 
 cd "$repo_root"
 printf 'Project directory: %s\n' "$repo_root"
-printf '%s\n' "Choose OpenRouter and a model in the Hermes selector. The selection is saved by Hermes."
+printf '%s\n' "Starting Hermes with the provider and model already configured. Use 'hermes model' separately only when you want to change the saved default."
 
-hermes model
 exec hermes

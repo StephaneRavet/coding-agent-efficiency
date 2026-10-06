@@ -9,7 +9,7 @@ The unit of optimization is the complete task trajectory, including model calls,
 ## MVP decision
 
 - Operational harness: **Hermes**.
-- Comparison: **OpenAI Codex** versus Hermes using a fixed set of open-source/open-weight models through **OpenRouter**.
+- Optimization: Hermes with fixed open-source/open-weight models through **OpenRouter**; Codex is outside the MVP.
 - Agentic loop: preserve the loop concept already defined in the project Markdown as the conceptual target; do not redesign it as part of this harness pivot.
 - First experiment: small, reproducible task panel; fixed model set; identical tasks, repository states, and verifier.
 - Out of MVP: dynamic routing, model escalation, bounded Jev decisions, and DSH implementation/integration.
@@ -18,18 +18,18 @@ The unit of optimization is the complete task trajectory, including model calls,
 
 ## Research questions
 
-1. Can Hermes with a fixed set of OpenRouter open models approach Codex quality at lower verified task-level cost?
-2. How do quality, success rate, total cost, cost per successful task, elapsed time, and token/cache usage compare on the selected panel?
+1. Which Hermes/OpenRouter configuration minimizes verified task cost while meeting the quality floor?
+2. How do quality, success rate, total cost, cost per successful task, elapsed time, and token/cache usage vary by OpenRouter model configuration?
 3. If Hermes becomes limiting, which modular strategies would a later DSH experiment make possible?
 4. In later phases, when does sticky task/phase routing or evidence-based escalation help after cache and switching costs?
 5. How transferable are results across repositories, task types, harnesses, providers, and time?
 
 ## Evaluation principles
 
-- **Fixed MVP configuration:** hold Hermes, the model set, tasks, and verifier fixed for the initial comparison; compare against Codex under a matched protocol.
+- **Fixed MVP configuration:** hold Hermes, each OpenRouter model, tasks, and verifier fixed within each baseline run.
 - **Future replaceability:** keep the evaluation contract separable from harness-specific events so later harness or router comparisons remain possible.
 - **Task-level accounting:** include all attempts, routing calls, cached and uncached tokens, provider/tool charges, and relevant runtime costs.
-- **Quality before savings:** compare cost only among systems meeting the same minimum quality bar; report solve rate with every cost result.
+- **Quality before savings:** compare cost only among configurations meeting the same minimum quality bar; report solve rate with every cost result.
 - **Deterministic verification:** use task tests, build/lint checks, or a documented independent rubric; do not equate an agent's self-report with success.
 - **Small, explainable choices:** use a small fixed model set for the MVP; add models or tiers only when experiments justify them.
 - **Reproducibility:** record versions, configuration, task set, prices, cache assumptions, concurrency, seeds, and verifier outputs.
@@ -79,7 +79,7 @@ No improvement is claimed until these conditions have been measured.
 ## Non-goals
 
 - Maximizing the number of supported models or providers.
-- Treating Hermes as the permanent harness before comparative evidence exists.
+- Adding another harness such as DSH before a concrete Hermes limitation is measured.
 - Adding dynamic routing, escalation, or DSH to the initial MVP.
 - Replacing tests with model confidence or self-review.
 - Claiming universal savings from results on one benchmark or provider price snapshot.

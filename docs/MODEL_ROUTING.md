@@ -2,7 +2,7 @@
 
 ## Goal
 
-This document preserves the project's conceptual agentic loop and records routing as a later research direction. **The MVP does not implement model routing:** Hermes runs a fixed model configuration per baseline, with OpenAI Codex as comparator. Do not infer routing behavior from the architectural loop below.
+This document preserves the project's conceptual agentic loop and records routing as a later research direction. **The MVP does not implement model routing:** Hermes runs one fixed OpenRouter model configuration per baseline; The MVP measures only Hermes/OpenRouter configurations. Do not infer routing behavior from the architectural loop below.
 
 ## Preserved conceptual boundaries
 

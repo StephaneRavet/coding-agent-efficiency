@@ -1,0 +1,44 @@
+[
+  {
+    "id": "bug-normalize-label",
+    "category": "bug_fix",
+    "workspace": "fixtures/bug-normalize-label",
+    "prompt": "Fix normalize_label in src/qualitykit.py. It must trim leading/trailing whitespace and collapse every internal run of Unicode whitespace (spaces, tabs, newlines) to one ordinary space. Preserve letter case and punctuation. Keep the public function name and do not add dependencies.",
+    "rubric": ["Small focused change", "No dependency or unrelated API changes", "Readable implementation"]
+  },
+  {
+    "id": "bug-parse-duration",
+    "category": "bug_fix",
+    "workspace": "fixtures/bug-parse-duration",
+    "prompt": "Fix parse_duration in src/qualitykit.py. Accept a non-negative integer followed by s, m, or h (case-insensitive), with optional surrounding whitespace, and return seconds. Reject malformed, negative, decimal, and unsupported-unit values with ValueError. Keep the public function name and use only the standard library.",
+    "rubric": ["Small focused change", "Clear validation and errors", "No dependency or unrelated API changes"]
+  },
+  {
+    "id": "feature-integer-summary",
+    "category": "bounded_feature",
+    "workspace": "fixtures/feature-integer-summary",
+    "prompt": "Implement summarize_values(values) in src/qualitykit.py. For a non-empty iterable of integers return a dict with count, min, max, and arithmetic mean. For an empty iterable return count=0 and min=max=mean=None. Consume an iterable at most once and use only the standard library.",
+    "rubric": ["Matches the requested return shape", "Handles one-shot iterables", "No unnecessary dependencies or files"]
+  },
+  {
+    "id": "feature-slugify",
+    "category": "bounded_feature",
+    "workspace": "fixtures/feature-slugify",
+    "prompt": "Implement slugify(text) in src/qualitykit.py. Normalize Unicode accents to their ASCII base letters, lowercase, replace each run of non-ASCII-alphanumeric characters with one hyphen, and remove leading/trailing hyphens. Empty or punctuation-only input returns an empty string. Use only the standard library.",
+    "rubric": ["Deterministic normalization", "Correct separator handling", "No unnecessary dependencies or files"]
+  },
+  {
+    "id": "maintenance-stable-dedupe",
+    "category": "maintenance_refactor",
+    "workspace": "fixtures/maintenance-stable-dedupe",
+    "prompt": "Refactor deduplicate_names in src/qualitykit.py for clarity and linear-time behavior while preserving its contract: trim each name, ignore empty names, deduplicate case-insensitively, and retain the spelling and position of the first occurrence. Use only the standard library.",
+    "rubric": ["Behavior preserved", "Expected O(n) time", "Clear, maintainable implementation"]
+  },
+  {
+    "id": "maintenance-safe-mean",
+    "category": "maintenance_refactor",
+    "workspace": "fixtures/maintenance-safe-mean",
+    "prompt": "Refactor mean(values) in src/qualitykit.py for clarity and single-pass iterable support. Preserve the existing contract: return the arithmetic mean for non-empty numeric input and raise ValueError for empty input. Do not silently change the public API or add dependencies.",
+    "rubric": ["Behavior preserved", "Works with one-shot iterables", "Clear, maintainable implementation"]
+  }
+]

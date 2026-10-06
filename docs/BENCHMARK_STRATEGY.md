@@ -2,9 +2,9 @@
 
 ## Purpose
 
-Measure whether **Hermes running a fixed set of open-source/open-weight models through OpenRouter** can approach OpenAI Codex quality at lower total cost per successfully completed coding task. Begin with a small, reproducible task panel and a fixed model set. This MVP establishes baselines; it does not test dynamic routing or escalation.
+Optimize verified cost per successfully completed coding task with **Hermes running open-source/open-weight models through OpenRouter** while maintaining the declared quality floor. Begin with a small, reproducible task panel and a fixed model set. This MVP establishes baselines; it does not test dynamic routing or escalation.
 
-The operational protocol, freeze sheet, run procedure, and result schema are owned by [MVP_PROTOCOL.md](MVP_PROTOCOL.md). This document defines the strategy and later experiment sequence.
+The operational protocol, freeze sheet, run procedure, and result schema are owned by [MVP_PROTOCOL.md](MVP_PROTOCOL.md). The runnable six-task synthetic panel and CLI are documented in the [README](../README.md); they validate mechanics and provide a narrow initial sample, not a broad quality estimate. This document defines the strategy and later experiment sequence.
 
 ## Primary metric and quality gate
 
@@ -25,12 +25,12 @@ Report alongside it:
 - latency, completion time, tool reliability, and failure categories;
 - confidence intervals or paired uncertainty estimates.
 
-Treat a cost comparison as valid only when both systems pass the same quality gate on the same tasks. If the candidate misses the gate, report the result, but do not describe it as an efficiency improvement.
+Compare model configurations only when each meets the same quality gate on the same tasks. If a configuration misses the gate, report the result, but do not describe it as an efficiency improvement.
 
 ## Experimental controls
 
 1. **Paired tasks:** run each baseline and candidate on identical task IDs and equivalent initial repository states.
-2. **MVP harness:** run open models through Hermes and compare with Codex using equivalent task instructions, initial repository states, and verification. Record harness-specific differences that cannot be matched.
+2. **MVP harness:** run each fixed OpenRouter model through Hermes using identical task instructions, initial states, and verification.
 3. **Same verifier:** use task-owned tests or a predeclared independent rubric. Keep hidden tests hidden from the agent where applicable.
 4. **Repeat stochastic runs:** predeclare trial counts and seeds; distinguish one-attempt success from pass@k.
 5. **Freeze conditions:** record model/provider versions, routing configuration, system prompts where allowed, tool versions, concurrency, retries, timeout, and price snapshot.
@@ -39,13 +39,12 @@ Treat a cost comparison as valid only when both systems pass the same quality ga
 8. **No silent task filtering:** publish exclusions, timeouts, invalid runs, and missing telemetry with denominators.
 9. **Privacy:** use licensed/public tasks or approved synthetic/private tasks; publish only sanitized aggregates and artifacts.
 
-## MVP comparison
+## Hermes/OpenRouter MVP configurations
 
-| System | Configuration | Role |
+| Hermes/OpenRouter configuration | Settings | Role |
 | --- | --- | --- |
-| OpenAI Codex | Freeze the available Codex model/version, settings, and date | Quality/cost comparator |
-| Hermes + OpenRouter model A | Fixed open-source/open-weight model and provider settings | Open-model candidate |
-| Hermes + OpenRouter model B | Fixed open-source/open-weight model and provider settings | Open-model candidate |
+| Hermes + DeepSeek V3.2 | `deepseek/deepseek-v3.2`, OpenRouter default Balanced endpoint policy, reasoning low | Low-cost general coding candidate |
+| Hermes + Qwen3 Coder 30B A3B | `qwen/qwen3-coder-30b-a3b-instruct`, OpenRouter default Balanced endpoint policy, reasoning low | Coding-focused candidate |
 
 Keep the first panel deliberately small: select a few tasks spanning clear coding-task categories, with public/licensed or approved privacy-safe content, deterministic verifiers, and versioned task IDs. Freeze a small set of model IDs and settings before evaluation. Do not add models in response to evaluation outcomes; additions belong to a separately recorded iteration.
 
@@ -73,13 +72,13 @@ Later work may compare OpenRouter Auto/Pareto, RouteLLM, ACRouter, or evidence-b
 
 ### Phase 0 — Protocol
 
-- Select task suite(s), licensing, task IDs, task categories, and quality bar.
+- Review the versioned fixture tasks, licensing, task IDs, categories, and blind rubric; replace the synthetic panel in a new protocol revision before making broader quality claims.
 - Define cache-cold/warm policy, retry cap, timeout, concurrency, budget, and price source.
 - Write verifier contracts and pre-register exclusions and metrics.
 
 ### Phase 1 — Fixed-model MVP
 
-- Follow [MVP_PROTOCOL.md](MVP_PROTOCOL.md): six tasks, three independent repetitions, frozen configurations, paired starts, and one trajectory per run.
+- Follow [MVP_PROTOCOL.md](MVP_PROTOCOL.md): six tasks, three independent repetitions, frozen configurations, identical task starts, and one trajectory per run.
 - Measure quality, solve rate, total cost, cost per success, elapsed time, and available token/cache telemetry; confirm cost inputs can be reconstructed.
 
 ### Phase 2 — Harness and execution validation

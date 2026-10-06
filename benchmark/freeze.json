@@ -11,9 +11,6 @@
     "qwen/qwen3-coder-30b-a3b-instruct"
   ],
   "hermes_reasoning_effort": "low",
-  "codex_model": "gpt-6-luna",
-  "codex_cli_version": "codex-cli 0.160.1",
-  "codex_reasoning_effort": "low",
   "repetitions": 3,
   "timeout_seconds": 3600,
   "quality_threshold_score": 4.0,
