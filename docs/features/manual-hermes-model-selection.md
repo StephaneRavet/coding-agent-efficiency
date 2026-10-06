@@ -40,8 +40,8 @@ Source of truth: yes
 
 ## TODO
 
-- [ ] F001 — Install Hermes Agent and choose an OpenRouter model with tool use — status: user action — files: `scripts/hermes-manual.sh`
-- [ ] F002 — Perform a manual smoke test and record the observed Hermes/model versions — status: blocked on F001 — files: `docs/MVP_PROTOCOL.md`
+- [x] F001 — Install Hermes Agent and expose its CLI on `PATH` — status: complete at `90194c64` — files: `scripts/hermes-manual.sh`
+- [ ] F002 — Select an OpenRouter open-weight model and complete a harmless manual coding task — status: awaiting user selection — files: `docs/MVP_PROTOCOL.md`
 
 ## Journal impl Codex
 
@@ -49,6 +49,10 @@ Source of truth: yes
 - code map: `scripts/hermes-manual.sh:1` launcher; `README.md` manual start instructions; `docs/MVP_PROTOCOL.md` smoke-test separation.
 - checks: `bash -n scripts/hermes-manual.sh` passed; Hermes CLI absent from PATH at implementation time.
 - blocage: the launcher could not be exercised because Hermes is not installed. Installation is reserved to the user by project instructions.
+- status: partial; Hermes Agent installed to the default user location at pinned revision `90194c64ff99933ec3b9ecfd9295b06e6c11e038`; selector is open and awaiting model choice.
+- code map: unchanged; `scripts/hermes-manual.sh:1` starts `hermes model`, then `hermes` at repository root.
+- checks: `hermes --version` reports `v0.21.5+7733.g90194c6`; `hermes doctor` passes OpenRouter API connectivity; `hermes model` opens with OpenRouter active. No credential value was read or displayed.
+- install scope: optional browser and computer-use tools skipped; setup and gateway stages skipped; no key was entered.
 
 ## Files actuels
 
