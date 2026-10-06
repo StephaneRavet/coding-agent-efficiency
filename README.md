@@ -19,7 +19,17 @@ These are hypotheses to measure, not claimed results. Hermes is the selected MVP
 
 ## Current status
 
-This repository starts as an R&D brief and literature map. It contains no implementation or benchmark results yet. The next step is to freeze a small, reproducible task panel and a fixed set of OpenRouter open-source/open-weight models, then compare Hermes runs with Codex using the same tasks and verifier. Record quality, success rate, total cost, cost per successful task, elapsed time, and token/cache telemetry when available. Dynamic routing, escalation, and DSH are later experiments, not MVP requirements.
+This repository is an R&D brief and literature map with a minimal manual Hermes launcher; it contains no benchmark results yet. The next step is to freeze a small, reproducible task panel and a fixed set of OpenRouter open-source/open-weight models, then compare Hermes runs with Codex using the same tasks and verifier. Record quality, success rate, total cost, cost per successful task, elapsed time, and token/cache telemetry when available. Dynamic routing, escalation, and DSH are later experiments, not MVP requirements.
+
+## Manual Hermes smoke test
+
+With Hermes Agent installed and available on `PATH`, run:
+
+```bash
+./scripts/hermes-manual.sh
+```
+
+The launcher opens Hermes' interactive provider/model selector, then starts a session from this repository's root. Choose OpenRouter and a model that supports tool use. Manual smoke tests are exploratory and are not benchmark results. See [the feature record](docs/features/manual-hermes-model-selection.md).
 
 ## Documents
 
@@ -27,6 +37,7 @@ This repository starts as an R&D brief and literature map. It contains no implem
 - [Model routing](docs/MODEL_ROUTING.md): the preserved conceptual agentic loop and later routing experiments.
 - [Benchmark strategy](docs/BENCHMARK_STRATEGY.md): Hermes MVP protocol, metrics, controls, and later experiment sequence.
 - [MVP protocol](docs/MVP_PROTOCOL.md): task panel design, freeze sheet, run procedure, and result record.
+- [Feature index](docs/features/INDEX.md): implementation status for the manual Hermes launcher.
 - [State of the art](docs/STATE_OF_THE_ART.md): source-backed snapshot dated 2026-10-06.
 
 ## Guiding metric

@@ -4,6 +4,10 @@
 
 Compare OpenAI Codex with Hermes running a small, fixed set of open-source/open-weight models through OpenRouter. Measure task quality and end-to-end task economics. This is a fixed-model comparison; no dynamic routing, escalation, or DSH.
 
+## Manual smoke test
+
+Use [`scripts/hermes-manual.sh`](../scripts/hermes-manual.sh) to open Hermes' provider/model selector and start a session from the repository root. Select OpenRouter and a model with tool-use support. This is an exploratory setup check only: exclude its task, tokens, cost, and duration from benchmark results. See the [feature record](features/manual-hermes-model-selection.md).
+
 ## Experimental unit
 
 One run is one system completing one task from a clean, versioned repository state through its declared verifier.
