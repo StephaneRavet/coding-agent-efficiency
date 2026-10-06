@@ -48,4 +48,4 @@ Always report the success rate and quality threshold beside this metric. A lower
 
 ## License
 
-Repository visibility is public. A reuse license has not yet been selected; until then, no open-source license is granted.
+This project is licensed under **GNU General Public License v3.0 only (GPL-3.0-only)**. See [LICENSE](LICENSE) for the complete terms.
