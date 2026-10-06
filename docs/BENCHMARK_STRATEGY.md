@@ -4,6 +4,8 @@
 
 Measure whether **Hermes running a fixed set of open-source/open-weight models through OpenRouter** can approach OpenAI Codex quality at lower total cost per successfully completed coding task. Begin with a small, reproducible task panel and a fixed model set. This MVP establishes baselines; it does not test dynamic routing or escalation.
 
+The operational protocol, freeze sheet, run procedure, and result schema are owned by [MVP_PROTOCOL.md](MVP_PROTOCOL.md). This document defines the strategy and later experiment sequence.
+
 ## Primary metric and quality gate
 
 For a fixed task panel and execution protocol:
@@ -77,9 +79,8 @@ Later work may compare OpenRouter Auto/Pareto, RouteLLM, ACRouter, or evidence-b
 
 ### Phase 1 — Fixed-model MVP
 
-- Freeze a small task panel, verifier, Codex configuration, Hermes version/configuration, fixed OpenRouter model IDs, prices, and run controls.
-- Run Codex and each fixed-model Hermes configuration on paired tasks.
-- Measure quality, solve rate, cost, cost per success, elapsed time, and available token/cache telemetry; confirm cost inputs can be reconstructed.
+- Follow [MVP_PROTOCOL.md](MVP_PROTOCOL.md): six tasks, three independent repetitions, frozen configurations, paired starts, and one trajectory per run.
+- Measure quality, solve rate, total cost, cost per success, elapsed time, and available token/cache telemetry; confirm cost inputs can be reconstructed.
 
 ### Phase 2 — Harness and execution validation
 

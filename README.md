@@ -26,6 +26,7 @@ This repository starts as an R&D brief and literature map. It contains no implem
 - [Project goals](docs/PROJECT_GOALS.md): objective, constraints, and acceptance contract.
 - [Model routing](docs/MODEL_ROUTING.md): the preserved conceptual agentic loop and later routing experiments.
 - [Benchmark strategy](docs/BENCHMARK_STRATEGY.md): Hermes MVP protocol, metrics, controls, and later experiment sequence.
+- [MVP protocol](docs/MVP_PROTOCOL.md): task panel design, freeze sheet, run procedure, and result record.
 - [State of the art](docs/STATE_OF_THE_ART.md): source-backed snapshot dated 2026-10-06.
 
 ## Guiding metric
