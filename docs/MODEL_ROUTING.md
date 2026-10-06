@@ -2,17 +2,17 @@
 
 ## Goal
 
-Select the least costly model configuration that can complete the current coding task while preserving the project's quality threshold. Routing is a policy under evaluation; it is not tied to one harness, provider, router, or model family.
+This document preserves the project's conceptual agentic loop and records routing as a later research direction. **The MVP does not implement model routing:** Hermes runs a fixed model configuration per baseline, with OpenAI Codex as comparator. Do not infer routing behavior from the architectural loop below.
 
-## Replaceable boundaries
+## Preserved conceptual boundaries
 
 ```text
 task and repository
         |
         v
-coding-agent harness <---- interchangeable adapter
+Hermes harness (MVP; future harnesses remain possible)
         |
-        +---- router policy <---- interchangeable policy adapter
+        +---- router policy <---- later interchangeable policy adapter
         |       | deterministic rules
         |       | bounded Jev decisions (optional)
         |       | learned/agentic router (optional)
@@ -26,13 +26,13 @@ deterministic verifier -> evidence -> continue / finish / escalate
 
 Keep semantic capability tiers separate from provider routing. A tier such as `fast`, `strong`, or `frontier` expresses required capability; provider/model selection and failover implement that tier.
 
-## Routing lifecycle
+## Conceptual agentic loop (preserved; routing stages deferred)
 
 ### 1. Establish a task baseline
 
 Capture task category, repository/workflow metadata permitted by the privacy policy, hard constraints, current budget, candidate tiers, and known verification commands. Reuse cached task and model facts where valid.
 
-### 2. Make the cheapest reliable initial decision
+### 2. Make the cheapest reliable initial decision (later routing work)
 
 1. Apply deterministic eligibility and safety rules.
 2. If uncertainty remains and the output is bounded, optionally use Jev to choose among a fixed set of tiers, classify task difficulty, or recommend whether more context is needed.
@@ -40,7 +40,7 @@ Capture task category, repository/workflow metadata permitted by the privacy pol
 
 Record the decision and its evidence. If a decision service is unavailable or uncertain, apply a documented deterministic fallback.
 
-### 3. Keep routing sticky when cache economics support it
+### 3. Keep routing sticky when cache economics support it (later routing work)
 
 Default to one tier for the task or coherent phase. Do not switch for each model call. Before changing tiers, estimate the incremental value of the switch against:
 
@@ -56,7 +56,7 @@ Model switches are allowed when expected quality or completion savings justify t
 
 Run the task's declared verifier. Preserve raw exit codes and structured results. An agent's statement that work is complete is not a verifier result.
 
-### 5. Escalate from evidence
+### 5. Escalate from evidence (later routing work)
 
 Escalation may use evidence such as:
 
@@ -72,7 +72,7 @@ Do not escalate solely because the initial prompt appears difficult when the exe
 
 Stop when the verifier passes, when the budget/attempt policy is exhausted, or when a deterministic terminal condition is reached. Count every routing call, retry, model attempt, cache category, tool charge, and failed task in the run record.
 
-## Sticky routing versus step-level routing
+## Later research: sticky routing versus step-level routing
 
 Evaluate these separately:
 

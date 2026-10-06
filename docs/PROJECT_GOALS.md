@@ -4,30 +4,45 @@
 
 Find coding-agent configurations that minimize **total cost per successfully completed coding task** while maintaining a predeclared, verifiable quality threshold.
 
-The unit of optimization is the complete task trajectory, including routing, model calls, cache effects, tools, retries, verification, and escalation. The project does not optimize token price or per-request price in isolation.
+The unit of optimization is the complete task trajectory, including model calls, cache effects, tools, retries, and verification. The project does not optimize token price or per-request price in isolation.
+
+## MVP decision
+
+- Operational harness: **Hermes**.
+- Comparison: **OpenAI Codex** versus Hermes using a fixed set of open-source/open-weight models through **OpenRouter**.
+- Agentic loop: preserve the loop concept already defined in the project Markdown as the conceptual target; do not redesign it as part of this harness pivot.
+- First experiment: small, reproducible task panel; fixed model set; identical tasks, repository states, and verifier.
+- Out of MVP: dynamic routing, model escalation, bounded Jev decisions, and DSH implementation/integration.
+- Later R&D: consider DSH to test more modular strategies if Hermes becomes a demonstrated limitation.
+- No benchmark result or harness superiority is assumed in advance.
 
 ## Research questions
 
-1. Which combinations of harness, router, model pool, and verifier reach the quality threshold at the lowest task-level cost?
-2. When does sticky task- or phase-level routing outperform per-call routing after accounting for cache reuse and switching costs?
-3. Which deterministic signals justify escalation, and how much do they reduce failed retries without over-escalating?
-4. Which bounded decisions can Jev make reliably and cheaply enough to improve on deterministic policies?
+1. Can Hermes with a fixed set of OpenRouter open models approach Codex quality at lower verified task-level cost?
+2. How do quality, success rate, total cost, cost per successful task, elapsed time, and token/cache usage compare on the selected panel?
+3. If Hermes becomes limiting, which modular strategies would a later DSH experiment make possible?
+4. In later phases, when does sticky task/phase routing or evidence-based escalation help after cache and switching costs?
 5. How transferable are results across repositories, task types, harnesses, providers, and time?
 
-## Core principles
+## Evaluation principles
 
-- **Harness-independent:** adapters isolate harness-specific events from the evaluation contract.
-- **Router-independent:** policies can be swapped while holding tasks, harness, verifier, and candidate models constant.
+- **Fixed MVP configuration:** hold Hermes, the model set, tasks, and verifier fixed for the initial comparison; compare against Codex under a matched protocol.
+- **Future replaceability:** keep the evaluation contract separable from harness-specific events so later harness or router comparisons remain possible.
 - **Task-level accounting:** include all attempts, routing calls, cached and uncached tokens, provider/tool charges, and relevant runtime costs.
 - **Quality before savings:** compare cost only among systems meeting the same minimum quality bar; report solve rate with every cost result.
-- **Evidence-based escalation:** prefer verifier failures, repeated errors, bounded retry counts, and explicit budget limits over prompt-only guesses.
 - **Deterministic verification:** use task tests, build/lint checks, or a documented independent rubric; do not equate an agent's self-report with success.
-- **Small, explainable choices:** maintain a few capability tiers and provider fallbacks; add options only when experiments justify them.
-- **Cache awareness:** include cache hits, cache misses, and model-switch effects in routing and evaluation.
-- **Bounded Jev use:** use Jev for structured classifications or choices with defined options and a deterministic fallback. Do not delegate open-ended implementation or verification to it.
+- **Small, explainable choices:** use a small fixed model set for the MVP; add models or tiers only when experiments justify them.
 - **Reproducibility:** record versions, configuration, task set, prices, cache assumptions, concurrency, seeds, and verifier outputs.
 
-## Decision hierarchy
+## Later architecture principles
+
+These principles retain the conceptual loop and guide post-MVP routing experiments; they do not add MVP scope.
+
+- **Evidence-based escalation:** prefer verifier failures, repeated errors, bounded retry counts, and explicit budget limits over prompt-only guesses.
+- **Cache awareness:** include cache hits, cache misses, and model-switch effects in routing and evaluation.
+- **Bounded Jev use:** use Jev for structured classifications or choices with defined options and a deterministic fallback. Do not delegate open-ended implementation or verification to it.
+
+## Later decision hierarchy
 
 ```text
 Can deterministic evidence decide?
@@ -39,7 +54,9 @@ Can deterministic evidence decide?
 
 Examples of deterministic evidence include test exit status, build/lint results, retry count, repeated error signatures, changed-file scope, elapsed time, budget consumption, and whether required checks passed.
 
-## Architecture hypotheses
+## Preserved agentic loop and later architecture hypotheses
+
+The existing agentic loop described in the Markdown documents remains the conceptual design. This MVP changes the operational harness to Hermes; it does not change that loop's concepts. Dynamic selection, retries/escalation policy, and router decisions are deferred until fixed-model baselines exist.
 
 - Separate task-level model routing from provider failover.
 - Route at task start or a meaningful phase boundary; keep a model stable through a tool loop when switching would discard useful cache state.
@@ -49,11 +66,11 @@ Examples of deterministic evidence include test exit status, build/lint results,
 
 ## Acceptance contract for a claimed improvement
 
-A routing change is an improvement only when a paired, reproducible evaluation shows:
+A claimed MVP advantage is supported only when a paired, reproducible evaluation shows:
 
 1. the same task panel and verifier were used for the candidate and its baseline;
 2. the candidate meets the predeclared quality threshold, with solve rate and uncertainty reported;
-3. measured total cost per successful task is lower, after routing and retry costs;
+3. measured total cost per successful task is lower, after all attempts and measurable tool/provider costs;
 4. latency, cache behavior, failures, and task-level outcomes are reported;
 5. the result can be reproduced from versioned configuration and raw, privacy-safe measurements.
 
@@ -62,7 +79,8 @@ No improvement is claimed until these conditions have been measured.
 ## Non-goals
 
 - Maximizing the number of supported models or providers.
-- Selecting a single permanent harness or router before comparative evidence exists.
+- Treating Hermes as the permanent harness before comparative evidence exists.
+- Adding dynamic routing, escalation, or DSH to the initial MVP.
 - Replacing tests with model confidence or self-review.
 - Claiming universal savings from results on one benchmark or provider price snapshot.
 - Publishing private task content, source code, credentials, or trace data without authorization.

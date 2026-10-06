@@ -54,9 +54,9 @@ Sources: [CodeRouterBench repository](https://github.com/LanceZPF/agent-as-a-rou
 
 ## Project position
 
-This project will test an **interchangeable R&D harness** rather than commit to one provider stack. It will compare ready routers and research policies on paired coding tasks, with deterministic verification and full trajectory cost accounting. Sticky routing, cache awareness, bounded Jev decisions, and evidence-based escalation are hypotheses in the experimental design, not assumed wins.
+The MVP uses **Hermes as its operational harness** and compares fixed OpenRouter open-source/open-weight model configurations with OpenAI Codex on a small, reproducible paired task panel. It measures quality, success rate, total cost, cost per successful task, elapsed time, and token/cache telemetry when available. Dynamic routing, bounded Jev decisions, and escalation remain later hypotheses. DSH is a possible later R&D harness if Hermes proves limiting for modular experiments.
 
-Initial candidate baselines:
+Potential later baselines (outside the MVP):
 
 - fixed inexpensive model and fixed strong/frontier model;
 - OpenRouter Auto and Pareto Code;
